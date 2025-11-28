@@ -1,0 +1,96 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../components/Layout.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<Layout activeTab="projects">
+  <pre>{`+------------------------------------------------------------------------------+
+|  PROJECTS                                                                    |
++------------------------------------------------------------------------------+
+`}</pre>
+  <div class="projects-list">
+    {
+      projects.length === 0 ? (
+        <p>No projects yet...</p>
+      ) : (
+        projects.map((project) => (
+          <div class="project-item">
+            <a href={`/projects/${project.id}/`}>
+              <span class="project-date"><FormattedDate date={project.data.pubDate} /></span>
+              <span class="project-separator">|</span>
+              <span class="project-title">{project.data.title}</span>
+            </a>
+            <p class="project-desc">{project.data.description}</p>
+            <div class="project-links">
+              {project.data.github && (
+                <a href={project.data.github} target="_blank" class="project-link">[github]</a>
+              )}
+              {project.data.website && (
+                <a href={project.data.website} target="_blank" class="project-link">[website]</a>
+              )}
+            </div>
+          </div>
+        ))
+      )
+    }
+  </div>
+</Layout>
+
+<style>
+  .projects-list {
+    margin-top: 1rem;
+  }
+
+  .project-item {
+    margin-bottom: 1rem;
+  }
+
+  .project-item > a {
+    text-decoration: none;
+    color: black;
+    display: block;
+  }
+
+  .project-item > a:hover .project-title {
+    text-decoration: underline;
+  }
+
+  .project-date {
+    color: #666;
+  }
+
+  .project-separator {
+    margin: 0 0.5rem;
+    color: #999;
+  }
+
+  .project-title {
+    color: blue;
+  }
+
+  .project-desc {
+    margin: 0.25rem 0 0 0;
+    color: #666;
+    font-size: 0.85rem;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  .project-link {
+    color: #666;
+    font-size: 0.85rem;
+  }
+
+  .project-link:hover {
+    color: blue;
+  }
+</style>

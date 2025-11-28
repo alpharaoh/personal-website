@@ -1,0 +1,91 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Layout from '../components/Layout.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+
+type Props = CollectionEntry<'projects'>['data'];
+
+const { title, description, pubDate, github, website } = Astro.props;
+---
+
+<Layout activeTab="projects">
+  <pre>{`+------------------------------------------------------------------------------+
+|  `}{title.toUpperCase().padEnd(74)}{`  |
++------------------------------------------------------------------------------+
+`}</pre>
+  <article>
+    <div class="project-meta">
+      <div class="meta-row">
+        <span class="meta-label">Date:</span>
+        <span class="meta-value"><FormattedDate date={pubDate} /></span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">About:</span>
+        <span class="meta-value">{description}</span>
+      </div>
+      {
+        (github || website) && (
+          <div class="meta-row">
+            <span class="meta-label">Links:</span>
+            <span class="meta-value">
+              {github && (
+                <a href={github} target="_blank">[github]</a>
+              )}
+              {website && (
+                <a href={website} target="_blank">[website]</a>
+              )}
+            </span>
+          </div>
+        )
+      }
+    </div>
+    <pre>{`+------------------------------------------------------------------------------+`}</pre>
+    <div class="content">
+      <slot />
+    </div>
+    <div class="back">
+      <a href="/projects">&lt;-- back to projects</a>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .project-meta {
+    margin: 1rem 0;
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .meta-label {
+    color: #666;
+    min-width: 50px;
+  }
+
+  .meta-value {
+    color: #333;
+  }
+
+  .meta-value a {
+    color: blue;
+    margin-right: 0.5rem;
+  }
+
+  .content {
+    margin-top: 1.5rem;
+    line-height: 1.8;
+  }
+
+  .back {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ccc;
+  }
+
+  .back a {
+    color: blue;
+  }
+</style>
