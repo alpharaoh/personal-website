@@ -1,115 +1,88 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Layout from '../components/Layout.astro';
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<main>
-    <div class='container'>
-      <pre>{`
-+------------------------------------------------------------------------------+
-|                                                                              |`}</pre>
-      <h1>Akaam Shamerany</h1>
-      <p>Fullstack engineer -- I work on product and build on the cutting edge.</p>
-      <p>Schedule time with me: <a href='https://calendly.com/akaam-bland/new-meeting' target="_blank">https://calendly.com/akaam-bland/new-meeting</a></p>
-      <pre>{`|                                                                              |
-+------------------------------------------------------------------------------+`}</pre>
-      <div class="tabs">
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
-        <a href="#writings">Writings</a>
-      </div>
-      <pre>{`
-+------------------------------------------------------------------------------+
+<Layout activeTab="experience">
+        <pre>{`+------------------------------------------------------------------------------+
 |  WORK (highlights)                                       `}[<a href="/cv.pdf" download>download full CV</a>]{`  |
 +------------------------------------------------------------------------------+
 `}</pre>
-      <div>
-        <h3><a href='https://bland.ai' target="_blank">Bland.ai</a>  <span>-- AI phone agents</span></h3>
-          <ul>
-        <li>
-Engineered live translation over telephony (industry first)
-        </li>
-          <li>
-Developed SSR web chat widget (voice + chat)
-          </li>
-          <li>
-Built deterministic agent testing framework for users
-          </li>
-          <li>
-            Architected compliance and legal guard rails that can be customized for any AI agent
-          </li>
-          </ul>
-      </div>
-      <div>
-        <h3><a href='https://11x.ai' target="_blank">11x.ai</a>  <span>-- Sales AI agent</span></h3>
-          <ul>
-        <li>
-            Head of engineering
-        </li>
-        <li>
-            Implemented the entire LinkedIn automation systems
-        </li>
-          <li>
-            Built website tracking lead generation systems
-          </li>
-          <li>
-            Rebuilt the entire frontend platform, backend systems and AI agents
-          </li>
-          </ul>
-      </div>
-      <div>
-        <h3><a href='https://quantumboost.com' target="_blank">Quantum boost</a>  <span>-- Accelerating material science using ML/AI</span></h3>
-          <ul>
-        <li>
-            Founding engineer
-        </li>
-        <li>
-            Developed custom Bayesian Optimisation with Gaussian Process algorithm for chemical formulation
-        </li>
-          <li>
-            Built probability visualization systems to enable understanding underlying models
-          </li>
-          <li>
-Engineered chemical formulation constraints and XOR material exclusion logic
-          </li>
-          </ul>
-      </div>
-      <pre>{`
+  <div>
+    <h3><a href="https://bland.ai" target="_blank">Bland.ai</a>  <span>-- AI phone agents</span></h3>
+    <ul>
+      <li>
+        Engineered live translation over telephony (industry first)
+      </li>
+      <li>
+        Developed SSR web chat widget (voice + chat)
+      </li>
+      <li>
+        Built deterministic agent testing framework for users
+      </li>
+      <li>
+        Architected compliance and legal guard rails that can be customized for any AI agent
+      </li>
+    </ul>
+  </div>
+  <div>
+    <h3><a href="https://11x.ai" target="_blank">11x.ai</a>  <span>-- Sales AI agent</span></h3>
+    <ul>
+      <li>
+        Head of engineering
+      </li>
+      <li>
+        Implemented the entire LinkedIn automation systems
+      </li>
+      <li>
+        Built website tracking lead generation systems
+      </li>
+      <li>
+        Rebuilt the entire frontend platform, backend systems and AI agents
+      </li>
+    </ul>
+  </div>
+  <div>
+    <h3><a href="https://quantumboost.com" target="_blank">Quantum boost</a>  <span>-- Accelerating material science using ML/AI</span></h3>
+    <ul>
+      <li>
+        Founding engineer
+      </li>
+      <li>
+        Developed custom Bayesian Optimisation with Gaussian Process algorithm for chemical formulation
+      </li>
+      <li>
+        Built probability visualization systems to enable understanding underlying models
+      </li>
+      <li>
+        Engineered chemical formulation constraints and XOR material exclusion logic
+      </li>
+    </ul>
+  </div>
+  <pre>{`
 +------------------------------------------------------------------------------+
 |  EDUCATION                                                                   |
 +------------------------------------------------------------------------------+
 `}</pre>
-      <div>
-        <h3>University of Birmingham</h3>
-        <ul>
-        <li>
-            Masters of Computer Science -- First grade, 80% 
-        </li>
-        </ul>
-      </div>
-      <div>
-        <h3>Highfield School</h3>
-        <ul>
-        <li>
-            A levels: A* (Physics), A* (Mathematics), A (Computer Science)
-        </li>
-        <li>
-            GCSE: <span title="Chemistry">A**</span>, <span title="Physics">A*</span>, <span title="Mathematics">A*</span>, <span title="Computer Science">A*</span>, <span title="English Literature">A*</span>, <span title="English Language">A*</span>, <span title="History">A</span>, <span title="Geography">A</span>, <span title="French">A</span>, <span title="Religious Studies">A</span>, <span title="Art">A</span>
-        </li>
-        <li>
-            Awarded best Maths and Science student
-        </li>
-        </ul>
-      </div>
-    </div>
-		</main>
-	</body>
-</html>
+  <div>
+    <h3>University of Birmingham</h3>
+    <ul>
+      <li>
+        Masters of Computer Science -- First grade, 80%
+      </li>
+    </ul>
+  </div>
+  <div>
+    <h3>Highfield School</h3>
+    <ul>
+      <li>
+        A levels: A* (Physics), A* (Mathematics), A (Computer Science)
+      </li>
+      <li>
+        GCSE: <span title="Chemistry">A**</span>, <span title="Physics">A*</span>, <span title="Mathematics">A*</span>, <span title="Computer Science">A*</span>, <span title="English Literature">A*</span>, <span title="English Language">A*</span>, <span title="History">A</span>, <span title="Geography">A</span>, <span title="French">A</span>, <span title="Religious Studies">A</span>, <span title="Art">A</span>
+      </li>
+      <li>
+        Awarded best Maths and Science student
+      </li>
+    </ul>
+  </div>
+</Layout>
