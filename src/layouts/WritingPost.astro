@@ -1,0 +1,59 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Layout from '../components/Layout.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+
+type Props = CollectionEntry<'writings'>['data'];
+
+const { title, description, pubDate, updatedDate } = Astro.props;
+---
+
+<Layout activeTab="writings">
+  <pre>{`+------------------------------------------------------------------------------+
+|  `}{title.toUpperCase().padEnd(74)}{`  |
++------------------------------------------------------------------------------+
+`}</pre>
+  <article>
+    <div class="meta">
+      <FormattedDate date={pubDate} />
+      {
+        updatedDate && (
+          <span class="updated">
+            (updated: <FormattedDate date={updatedDate} />)
+          </span>
+        )
+      }
+    </div>
+    <div class="content">
+      <slot />
+    </div>
+    <div class="back">
+      <a href="/writings">&lt;-- back to writings</a>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .meta {
+    color: #666;
+    margin-bottom: 1.5rem;
+  }
+
+  .updated {
+    font-style: italic;
+  }
+
+  .content {
+    line-height: 1.8;
+  }
+
+  .back {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ccc;
+  }
+
+  .back a {
+    color: blue;
+  }
+</style>

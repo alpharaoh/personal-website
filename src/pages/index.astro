@@ -1,5 +1,11 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../components/Layout.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+
+const writings = (await getCollection('writings')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+).slice(0, 5);
 ---
 
 <Layout activeTab="experience">
@@ -58,6 +64,7 @@ import Layout from '../components/Layout.astro';
       </li>
     </ul>
   </div>
+  <br/>
   <pre>{`
 +------------------------------------------------------------------------------+
 |  EDUCATION                                                                   |
@@ -85,4 +92,52 @@ import Layout from '../components/Layout.astro';
       </li>
     </ul>
   </div>
+  <br/>
+  <pre>{`
++------------------------------------------------------------------------------+
+|  RECENT WRITINGS                                              `}[<a href="/writings">see all --&gt;</a>]{`  |
++------------------------------------------------------------------------------+
+`}</pre>
+  <div class="writings-list">
+    {
+      writings.length === 0 ? (
+        <p>No writings yet...</p>
+      ) : (
+        writings.map((writing) => (
+          <div class="writing-item">
+            <span class="writing-arrow">&gt;</span>
+            <a href={`/writings/${writing.id}/`}>
+              <span class="writing-title">{writing.data.title}</span>
+            </a>
+            <span class="writing-date">(<FormattedDate date={writing.data.pubDate} />)</span>
+          </div>
+        ))
+      )
+    }
+  </div>
 </Layout>
+
+<style>
+  .writings-list {
+    margin-top: 0.5rem;
+  }
+
+  .writing-item {
+    margin-bottom: 0.5rem;
+  }
+
+  .writing-arrow {
+    color: #666;
+    margin-right: 0.5rem;
+  }
+
+  .writing-item a {
+    color: blue;
+  }
+
+  .writing-date {
+    color: #666;
+    margin-left: 0.5rem;
+    font-size: 0.85rem;
+  }
+</style>
