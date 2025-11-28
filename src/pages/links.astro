@@ -1,0 +1,57 @@
+---
+import Layout from '../components/Layout.astro';
+---
+
+<Layout activeTab="links">
+  <pre>{`+------------------------------------------------------------------------------+
+|  LINKS                                                                       |
++------------------------------------------------------------------------------+
+`}</pre>
+  <div class="links-list">
+    <div class="link-item">
+      <span class="link-icon">[calendly]</span>
+      <a href="https://calendly.com/akaam-bland/new-meeting" target="_blank">calendly.com/akaam-bland/new-meeting</a>
+    </div>
+    <div class="link-item">
+      <span class="link-icon">[github]</span>
+      <a href="https://github.com/alpharaoh" target="_blank">github.com/alpharaoh</a>
+    </div>
+    <div class="link-item">
+      <span class="link-icon">[linkedin]</span>
+      <a href="https://www.linkedin.com/in/akaam-shamerany/" target="_blank">linkedin.com/in/akaam-shamerany</a>
+    </div>
+    <div class="link-item">
+      <span class="link-icon">[youtube]</span>
+      <a href="https://www.youtube.com/@alpharaohh" target="_blank">youtube.com/@alpharaohh</a>
+    </div>
+    <div class="link-item">
+      <span class="link-icon">[twitter]</span>
+      <a href="https://x.com/alpharaohh" target="_blank">x.com/alpharaohh</a>
+    </div>
+    <div class="link-item">
+      <span class="link-icon">[email]</span>
+      <a href="mailto:akaam@bland.ai">akaam@bland.ai</a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .links-list {
+    margin-top: 1rem;
+  }
+
+  .link-item {
+    margin-bottom: 0.75rem;
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .link-icon {
+    color: #666;
+    min-width: 80px;
+  }
+
+  .link-item a {
+    color: blue;
+  }
+</style>

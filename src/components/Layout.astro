@@ -3,7 +3,7 @@ import BaseHead from './BaseHead.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 interface Props {
-  activeTab?: 'experience' | 'projects' | 'writings';
+  activeTab?: 'experience' | 'projects' | 'writings' | 'links';
 }
 
 const { activeTab } = Astro.props;
@@ -22,13 +22,13 @@ const { activeTab } = Astro.props;
 |                                                                              |`}</pre>
         <h1><a href="/">Akaam Shamerany</a></h1>
         <p>Fullstack engineer -- I work on product and build on the cutting edge.</p>
-        <p>Schedule time with me: <a href="https://calendly.com/akaam-bland/new-meeting" target="_blank">https://calendly.com/akaam-bland/new-meeting</a></p>
         <pre>{`|                                                                              |
 +------------------------------------------------------------------------------+`}</pre>
         <div class="tabs">
           <a href="/" class={activeTab === 'experience' ? 'active' : ''}>Experience</a>
           <a href="/projects" class={activeTab === 'projects' ? 'active' : ''}>Projects</a>
           <a href="/writings" class={activeTab === 'writings' ? 'active' : ''}>Writings</a>
+          <a href="/links" class={activeTab === 'links' ? 'active' : ''}>Links</a>
         </div>
         <slot />
       </div>
