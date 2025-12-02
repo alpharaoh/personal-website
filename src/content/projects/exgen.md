@@ -42,7 +42,7 @@ So essentially the HTML that is rendered to the user is fully AI generated from 
 
 ## Why?
 
-Throughout my career, giving more agency to LLMs (especially smart ones), gives better outputs in general than a strict system of prompts. Imagine if the LLM had full agency over how the backend should behave, and also how data should be represented to the user.
+Throughout my career, giving more agency to LLMs (especially smart ones), gives better outputs in general than a strict system of prompts <a href="#ref-1">[1]</a>. Imagine if the LLM had full agency over how the backend should behave, and also how data should be represented to the user.
 
 The best UX in modern times is just the one that most people are "fine" with, it's the best average experience across all users in other words. 
 
@@ -115,4 +115,6 @@ Here is a quick diagram of what happens on the Exgen server.
               +---------+   +---------+   +---------+
 ```
 
+`-------------------------------------------------------------------------------`
 
+<span id="ref-1">[1]</span> Of course, it also makes it more likely to say/do some stupid things, so there's a tradeoff.
