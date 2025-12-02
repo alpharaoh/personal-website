@@ -1,10 +1,21 @@
-import { Image } from 'astro:assets';
-
 ---
 title: 'Building an Unbeatable League of Legends Bot'
 description: 'Creating synthetic training data for object detection to build an AI bot for Mundo Dodgeball'
 pubDate: 'Dec 15 2020'
 ---
+
+import { Image } from 'astro:assets';
+import img1 from '../../assets/writings/league-of-legends-bot/1.png';
+import img2 from '../../assets/writings/league-of-legends-bot/2.gif';
+import img3 from '../../assets/writings/league-of-legends-bot/3.gif';
+import img4 from '../../assets/writings/league-of-legends-bot/4.png';
+import img5 from '../../assets/writings/league-of-legends-bot/5.png';
+import img6 from '../../assets/writings/league-of-legends-bot/6.png';
+import img7 from '../../assets/writings/league-of-legends-bot/7.png';
+import img8 from '../../assets/writings/league-of-legends-bot/8.png';
+import img9 from '../../assets/writings/league-of-legends-bot/9.jpg';
+import img10 from '../../assets/writings/league-of-legends-bot/10.png';
+import img11 from '../../assets/writings/league-of-legends-bot/11.png';
 
 **[2 Dec 2025: Preserved as originally written, though my writing style has since changed.]**
 
@@ -14,7 +25,7 @@ pubDate: 'Dec 15 2020'
 
 League of Legends, A MOBA (Multiplayer Online Battle Arena) is the most popular game on the planet, with a total of 150 million registered players and over 117 Million players that are actively playing every month. As an active player at the time, something caught my attention, and it wasn't about the game, but more so its competitor, Dota 2.
 
-<Image src="/assets/1.jpg" alt="League of Legends" width="100%" />
+<Image src={img1} alt="OpenAI Five vs OG" width='620px'/>
 
 In April of 2019, the Dota e-sports world champion team, OG was up against a new team. But it wasn't any team, it was OpenAI Five; a neural network that was trained with 45,000 years of Dota 2 gameplay. Not only did they win, but they swept the world champions back-to-back to win the best of three. The e-sports world was in shock at this technology, and everyone was eager for League to reproduce the same technology. But they refused.
 
@@ -30,7 +41,7 @@ It became apparent however that, unlike Dota, League of Legends does not have a 
 
 Okay, fine. I could just build a script to access the computer's memory and retrieve the information I need from there (i.e. the position of characters and the health bars). Although, it wasn't long before I realized this was inapplicable, not because it was against the policy of the game, but because League has unrivaled protection and security. Any actions that try to access the game's memory will be flagged as malicious and your account will get banned, permanently.
 
-At this point, the project seemed to be out of my limits. The only other option I could think of is using Object Detection, which seemed like a great alternative. However, there are major downsides that involve - 
+At this point, the project seemed to be out of my limits. The only other option I could think of is using Object Detection, which seemed like a great alternative. However, there are major downsides that involve -
 
 Taking thousands of screenshots of the game and having to manually label each image.
 
@@ -40,13 +51,15 @@ Implementing additional object detection for the axes that will be thrown at the
 
 To conclude, this requires too much effort.
 
-<Image src="/assets/2.jpg" alt="League of Legends" width="100%" />
+<Image src={img2} alt="Too much effort meme" width='280px' />
 
 ## The Solution
 
-It only took the next few days until I had the eureka moment; to create the images synthetically, but in such a way that it effectively mimics the environment, so that once the model is run on the game, there is no loss in performance. Luckily, there is a website called Teemo.gg that has the 3D models of the characters and I could easily get screenshots of the map. All I needed to do was piece together these components and it should leave me with images that not even players can distinguish between the fake and the real. 
+It only took the next few days until I had the eureka moment; to create the images synthetically, but in such a way that it effectively mimics the environment, so that once the model is run on the game, there is no loss in performance. Luckily, there is a website called Teemo.gg that has the 3D models of the characters and I could easily get screenshots of the map. All I needed to do was piece together these components and it should leave me with images that not even players can distinguish between the fake and the real.
 
 This technique would also allow me to know exactly where each object is on the scene. With a successful object detection model, I would be able to pair this neural network with a Python script that would interpret the data and execute precise actions based on the state of the game. The implementation became clear in my head and it was time to code.
+
+<Image src={img3} alt="Patrick Star rubbing hands" width='280px' />
 
 ## Technical
 
@@ -54,7 +67,7 @@ First I wanted to create a single synthetic image before creating thousands. In 
 
 Unfortunately, Teemo.gg does not have any way to export a sequence of images with a transparent background. But they allowed me to change the background color. Well, that would mean I would need to create the images with a solid green background and simply key out the color using another Python script.
 
-<Image src="/assets/3.jpg" alt="League of Legends" width="100%" />
+<Image src={img4} alt="Teemo.gg 3D model with green screen" width='620px' />
 
 Let's first load the image and call a function we will create to replace all the green-colored pixels with a transparent pixel.
 
@@ -64,15 +77,15 @@ TRANSPARANT =[0, 0, 0, 0]
 # Green colour
 GREEN = [0, 255, 0]
 
-# Read image using OpenCV 
+# Read image using OpenCV
 image = cv2.imread(os.path.join(folder_path, file_name))
 
 # Make sure image exists in folder
 if image is not None:
   img = remove_background(final_image, GREEN, TRANSPARANT)
-  
+
   save_image(img)
- 
+
 # function to save image
 def save_image(image: Image, path="./", name="remove_background_image_test"):
   ...
@@ -83,7 +96,7 @@ def save_image(image: Image, path="./", name="remove_background_image_test"):
 def remove_background(image: Image, bg_colour: tuple, replacement: tuple):
    # make a copy of the image and convert it from BGR to RGBA
    image_rgba = cv2.cvtColor(image, cv2.COLOR_BGR2RGBA).copy()
-   
+
    # convert all green coloured pixels to replacement colour
    image_rgba[np.all(bg_colour, axis=-1)] = replacement
 
@@ -92,7 +105,7 @@ def remove_background(image: Image, bg_colour: tuple, replacement: tuple):
 
 The output once we run this is exactly what I need.
 
-<Image src="/assets/4.jpg" alt="League of Legends" width="100%" />
+<Image src={img5} alt="Transparent background result" width='620px' />
 
 That's 1 down, and thousands more to go! To speed up the process, I would need to record my screen and turn the 3D player model in different positions. From there I can use another script to split the video into frames and then pipe the frames into the script to remove each image background. _Sounds like a plan._
 
@@ -114,14 +127,14 @@ def save_all_frames(video_path: str, video_name: str, output_path: str, file_nam
       # save image
       cv2.imwrite(f"{output_path}/{file_name}_{count}.png", image)
       success, image = video_capture.read()
-      
+
       # increase count so that files don't get overwritten
       count += 1
 ```
 
 Then pipe the images created to the script we built previously.
 
-<Image src="/assets/5.jpg" alt="League of Legends" width="100%" />
+<Image src={img6} alt="Compression artifacts issue" width='360px' />
 
 Hold on, what is going on here.
 
@@ -135,7 +148,7 @@ LOWERGREEN = [0, 240, 0, 255]
 UPPERGREEN = [150, 255, 150, 255]
 ```
 
-And then in our remove_background, we replace pixels that are in the bounds we have defined above.  
+And then in our remove_background, we replace pixels that are in the bounds we have defined above.
 
 ```python
 # if green in bounds
@@ -149,17 +162,16 @@ I encourage everyone to check out the full program since I have abstracted the c
 
 Now we can create thousands of transparent images of the 3D model in different positions. Here are just a few examples of the output:
 
-<Image src="/assets/6.jpg" alt="League of Legends" width="100%" />
-
-<Image src="/assets/7.jpg" alt="League of Legends" width="100%" />
+<Image src={img7} alt="Transparent Mundo model 1" width='300px'/>
+<Image src={img8} alt="Transparent Mundo model 2" width='220px'/>
 
 ## Creating the environment
 
 Now that we have our model ready, we can overlay the images on top of screenshots of the map where the 1v1 will be taking place. I would need to ensure that the size and placement of the image are precise and matches how it would look in-game. For example, the model must not resonate in the walls or totally outside the viewport. It must be inside the cave portion of the map. The figure below is an example of what I am aiming to reproduce.
 
-<Image src="/assets/8.jpg" alt="League of Legends" width="100%" />
+<Image src={img9} alt="Target environment example" width='620px'/>
 
-First, I will record different angles of the pit and use my previous script to split the video into unique frames. 
+First, I will record different angles of the pit and use my previous script to split the video into unique frames.
 
 The function definition to merge the Mundo and the background image is
 
@@ -171,7 +183,7 @@ Where background is the pit
 
 foreground is a list of Images (Likely that there will be more than one Image in the foreground)
 
-resize_mult determines how large the foreground would be, which is critical as it allows me to effectively tinker with the size of the foreground to exactly match how it would look in the game. 
+resize_mult determines how large the foreground would be, which is critical as it allows me to effectively tinker with the size of the foreground to exactly match how it would look in the game.
 
 count allows for recursion. It will be first initialized to 0, then merge_background_foreground function would be called again recursively until all the foreground images have been pasted onto the background.
 
@@ -201,7 +213,7 @@ x_position, y_position = self.get_random_position()
 Then we will resize the foreground image if a resize multiplier has been given and then paste the foreground onto the background. This method would be called recursively n amount of times where n is the number of images given as foreground
 
 ```python
-# get new x, y of foreground after resizing 
+# get new x, y of foreground after resizing
 new_size_x, new_size_y = int(foreground_size[0] * resize_mult), int(foreground_size[1] * resize_mult)
 
 # apply resize onto foreground image
@@ -209,8 +221,8 @@ foreground_resized = foreground_object.resize((new_size_x, new_size_y))
 
 # paste resized foreground onto background at poisiton
 background.paste(
-   foreground_resized, 
-   (x_position, y_position), 
+   foreground_resized,
+   (x_position, y_position),
    foreground_resized)
 
 # run function again if we havn't looped through all images in foreground
@@ -221,13 +233,13 @@ if count < len(foreground)-1:
 return background
 ```
 
-The final script however is much more complex as it keeps track of where each image is placed and creates a text file with their respected bounding boxes. It also assigns probabilities to add cursors, noise, flipping the images, and much more intricate behavior. 
+The final script however is much more complex as it keeps track of where each image is placed and creates a text file with their respected bounding boxes. It also assigns probabilities to add cursors, noise, flipping the images, and much more intricate behavior.
 
-The final result is thousands of images, perfected for YOLOv5, the state-of-the-art object detection framework to train the images. 
+The final result is thousands of images, perfected for YOLOv5, the state-of-the-art object detection framework to train the images.
 
-<Image src="/assets/9.jpg" alt="League of Legends" width="100%" />
+<Image src={img10} alt="Generated training dataset" width='620px'/>
 
-As you can see, a percentage of the images have filters applied to them to make the model extremely robust, so when it is tested in the real game, the model will not have any problems adjusting to the users' setup. It must be highlighted however that due to restraints on the server and a lack of time, the images had to be resized and its quality changed to decrease the image file size and to speed up training. 
+As you can see, a percentage of the images have filters applied to them to make the model extremely robust, so when it is tested in the real game, the model will not have any problems adjusting to the users' setup. It must be highlighted however that due to restraints on the server and a lack of time, the images had to be resized and its quality changed to decrease the image file size and to speed up training.
 
 For those interested, here is an example of the bounding box data file for an image. It reveals that the image it's paired with has 4 foreground objects, 2 of which are Mundos and the other 2 are axes, with their normalized position values appended to each identifier.
 
@@ -238,8 +250,10 @@ For those interested, here is an example of the bounding box data file for an im
 1 0.3629807692307692 0.5048076923076923 0.042708333333333334 0.03888888888888889
 ```
 
-<Image src="/assets/9.jpg" alt="League of Legends" width="100%" />
+<Image src={img11} alt="Bounding box visualization" width='620px'/>
 
-This article is the start of many where I will underline my process on how I built this cutting-edge, unbeatable bot using Object Detection and other Machine Learning libraries. 
+This article is the start of many where I will underline my process on how I built this cutting-edge, unbeatable bot using Object Detection and other Machine Learning libraries.
 
-I urge any of those that are interested to take a look at the final source code since this article has heavily abstracted the techniques and functionality of the program. 
+I urge any of those that are interested to take a look at the final source code since this article has heavily abstracted the techniques and functionality of the program.
+
+https://github.com/alpharaoh/Machine-Learning/tree/main/Projects/MDAI
