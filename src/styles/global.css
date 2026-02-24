@@ -27,6 +27,14 @@ h1 a:hover {
   text-decoration: underline;
 }
 
+h1 .email-hint {
+  opacity: 0;
+}
+
+h1 a:hover .email-hint {
+  opacity: 1;
+}
+
 body {
   margin: 0;
   min-width: 320px;
